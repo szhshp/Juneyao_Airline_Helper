@@ -2,7 +2,7 @@ const presetSetionData = [
   {
     arrCode: 'SHA',
     sendCode: 'CKG',
-    departureDate: ['2020-10-09', '2020-10-08', '2020-10-10', '2020-10-11'],
+    departureDate: ['2020-10-09', '2020-10-08', '2020-10-10', '2020-10-15'],
   },
   {
     arrCode: 'SHA',

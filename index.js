@@ -1,11 +1,9 @@
 /* eslint-disable no-console */
 const axios = require('axios');
 const alert = require('alert');
-const chalk = require('chalk');
 const config = require('./data/config');
 const FLIGHT_STATUS = require('./constants');
 const presetSetionData = require('./data/payload');
-
 
 const DURATION = 30;
 
