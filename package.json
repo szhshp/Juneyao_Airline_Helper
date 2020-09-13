@@ -1,0 +1,30 @@
+{
+  "name": "juneyao_airline_helper",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/szhielelp/Juneyao_Airline_Helper.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/szhielelp/Juneyao_Airline_Helper/issues"
+  },
+  "homepage": "https://github.com/szhielelp/Juneyao_Airline_Helper#readme",
+  "dependencies": {
+    "alert": "^5.0.5",
+    "axios": "^0.20.0",
+    "chalk": "^4.1.0"
+  },
+  "devDependencies": {
+    "eslint": "^7.2.0",
+    "eslint-config-airbnb-base": "^14.2.0",
+    "eslint-plugin-import": "^2.22.0"
+  }
+}
