@@ -9,11 +9,24 @@ const presetSetionData = [
     sendCode: 'CTU',
     departureDate: ['2020-10-09', '2020-10-08', '2020-10-10', '2020-10-11'],
   },
-  /*  {
-    arrCode: 'SYX',
-    sendCode: 'SHA',
-    departureDate: ['2020-12-31', '2021-01-01'],
+  {
+    arrCode: 'SHA',
+    sendCode: 'SYX',
+    departureDate: ['2020-12-27'],
+  },
+  /* {
+    arrCode: 'SHA',
+    sendCode: 'MIG',
+    departureDate: ['2020-10-08'],
   }, */
 ];
 
-module.exports = presetSetionData;
+const payloads = presetSetionData
+  .map((section) => section.departureDate.map((date) => ({
+    arrCode: section.arrCode,
+    sendCode: section.sendCode,
+    departureDate: date,
+  })))
+  .flat();
+
+module.exports = payloads;

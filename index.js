@@ -3,9 +3,9 @@ const axios = require('axios');
 const alert = require('alert');
 const config = require('./data/config');
 const FLIGHT_STATUS = require('./constants');
-const presetSetionData = require('./data/payload');
+const payloads = require('./data/payload');
 
-const DURATION = 30;
+const DURATION = 5;
 
 const f = async ({
   departureDate, arrCode, sendCode, blackBox,
@@ -100,14 +100,12 @@ const f = async ({
   console.log('res: ', res);
 };
 
+let index = 0;
+
 const request = () => {
-  presetSetionData.forEach((section) => {
-    section.departureDate.map((date) => f({
-      ...section,
-      departureDate: date,
-    }));
-  });
+  f(payloads[index]);
+  index += 1;
+  if (index === payloads.length) index = 0;
 };
 
-request();
 setInterval(request, DURATION * 1000);
