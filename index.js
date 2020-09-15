@@ -5,7 +5,8 @@ const config = require('./data/config');
 const FLIGHT_STATUS = require('./constants');
 const payloads = require('./data/payload');
 
-const DURATION = 5;
+const DURATION = 10;
+const REQUEST_COUNT = 3;
 
 const f = async ({
   departureDate, arrCode, sendCode, blackBox,
@@ -102,10 +103,19 @@ const f = async ({
 
 let index = 0;
 
-const request = () => {
+const requestSinglePayload = () => {
   f(payloads[index]);
   index += 1;
   if (index === payloads.length) index = 0;
 };
 
-setInterval(request, DURATION * 1000);
+const requestMultiPayload = () => {
+  Array(REQUEST_COUNT)
+    .fill('szhshp is cool')
+    .forEach(() => {
+      requestSinglePayload();
+    });
+};
+
+requestMultiPayload();
+setInterval(requestMultiPayload, DURATION * 1000);
