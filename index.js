@@ -5,8 +5,11 @@ const config = require('./data/config');
 const FLIGHT_STATUS = require('./constants');
 const payloads = require('./data/payload');
 
+process.env.NODE_TLS_REJECT_UNAUTHORIZED = '0'
+
+const DEBUG = 0;
 const DURATION = 10;
-const REQUEST_COUNT = 3;
+const REQUEST_COUNT = 1;
 
 const f = async ({
   departureDate, arrCode, sendCode, blackBox,
@@ -51,6 +54,8 @@ const f = async ({
         platforminfo: 'MWEB',
       },
     });
+
+    if (DEBUG) console.log(data)
 
     const flightInfoDetail = data.data.flightInfoList;
 
