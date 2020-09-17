@@ -5,14 +5,14 @@ const config = require('./data/config');
 const FLIGHT_STATUS = require('./constants');
 const payloads = require('./data/payload');
 
-process.env.NODE_TLS_REJECT_UNAUTHORIZED = '0'
+process.env.NODE_TLS_REJECT_UNAUTHORIZED = '0';
 
 const DEBUG = 0;
 const DURATION = 10;
-const REQUEST_COUNT = 1;
+const REQUEST_COUNT = 3;
 
 const f = async ({
-  departureDate, arrCode, sendCode, blackBox,
+  departureDate, arrCode, sendCode,
 }) => {
   const res = {
     msg: '',
@@ -39,11 +39,10 @@ const f = async ({
       url: 'https://m.juneyaoair.com/server/v2/flight/AvFare',
       data: {
         arrAirportCode: null,
+        ...config,
         arrCode,
-        blackBox,
         sendCode,
         departureDate,
-        ...config,
         returnDate: null,
         sendAirportCode: null,
       },
@@ -55,7 +54,7 @@ const f = async ({
       },
     });
 
-    if (DEBUG) console.log(data)
+    if (DEBUG) console.log(data);
 
     const flightInfoDetail = data.data.flightInfoList;
 
