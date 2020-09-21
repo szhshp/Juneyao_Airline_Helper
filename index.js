@@ -7,9 +7,9 @@ const payloads = require('./data/payload');
 
 process.env.NODE_TLS_REJECT_UNAUTHORIZED = '0';
 
-const DEBUG = 0;
-const DURATION = 10;
-const REQUEST_COUNT = 3;
+const DEBUG = config.debug;
+const DURATION = config.duration;
+const REQUEST_COUNT = config.times;
 
 const f = async ({
   departureDate, arrCode, sendCode,
@@ -39,7 +39,7 @@ const f = async ({
       url: 'https://m.juneyaoair.com/server/v2/flight/AvFare',
       data: {
         arrAirportCode: null,
-        ...config,
+        ...config.payloadConfig,
         arrCode,
         sendCode,
         departureDate,
