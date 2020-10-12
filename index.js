@@ -1,9 +1,12 @@
 /* eslint-disable no-console */
 const axios = require('axios');
 const alert = require('alert');
+const { SMTPClient } = require('emailjs');
 const config = require('./data/config');
 const FLIGHT_STATUS = require('./constants');
 const payloads = require('./data/payload');
+
+const client = new SMTPClient(config.emailConfig);
 
 process.env.NODE_TLS_REJECT_UNAUTHORIZED = '0';
 
@@ -11,9 +14,7 @@ const DEBUG = config.debug;
 const DURATION = config.duration;
 const REQUEST_COUNT = config.times;
 
-const f = async ({
-  departureDate, arrCode, sendCode,
-}) => {
+const f = async ({ departureDate, arrCode, sendCode }) => {
   const res = {
     msg: '',
     departureDate,
@@ -96,11 +97,31 @@ const f = async ({
     res.msg = '网络请求失败';
   }
 
-  res.flightStatus.map((singleFlightStatus) => {
-    if (singleFlightStatus.status === FLIGHT_STATUS.FLIGHT_AVAILABLE) {
-      alert(singleFlightStatus.msg);
+  const availableFlights = res.flightStatus.filter(
+    (singleFlightStatus) => singleFlightStatus.status === FLIGHT_STATUS.FLIGHT_AVAILABLE,
+  );
+
+  if (availableFlights.length > 0) {
+    const availableFlightMessage = availableFlights
+      .map((flight) => flight.msg)
+      .join('\n\n');
+
+    if (config.mode === 'alert') {
+      alert(availableFlightMessage);
+    } else {
+      client.send(
+        {
+          text: availableFlightMessage,
+          from: config.emailConfig.user,
+          to: config.emailConfig.user,
+          subject: 'Flight Available !!! ',
+        },
+        (err, message) => {
+          console.log(err || message);
+        },
+      );
     }
-  });
+  }
 
   console.log('res: ', res);
 };
