@@ -60,7 +60,7 @@ const f = async ({ departureDate, arrCode, sendCode }) => {
     const flightInfoDetail = data.data.flightInfoList;
 
     const juneyaoFlights = flightInfoDetail.filter(
-      (flight) => flight.saleInfo === null,
+      (flight) => flight.saleInfo === undefined,
     );
 
     juneyaoFlights.forEach((flight) => {
@@ -123,6 +123,7 @@ const f = async ({ departureDate, arrCode, sendCode }) => {
     }
   }
 
+  console.log('time: ', new Date().toISOString().replace('T', ' '));
   console.log('res: ', res);
 };
 
@@ -143,4 +144,7 @@ const requestMultiPayload = () => {
 };
 
 requestMultiPayload();
-setInterval(requestMultiPayload, DURATION * 1000);
+setInterval(
+  requestMultiPayload,
+  (DURATION + (DURATION / 2) * Math.random()) * 1000,
+);
