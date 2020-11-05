@@ -123,7 +123,7 @@ const f = async ({ departureDate, arrCode, sendCode }) => {
     }
   }
 
-  console.log('time: ', new Date().toISOString().replace('T', ' '));
+  console.log('time: ', new Date().toString());
   console.log('res: ', res);
 };
 
