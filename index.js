@@ -83,7 +83,10 @@ const f = async ({ departureDate, arrCode, sendCode }) => {
 
       if (happyFlight.length === 0) {
         flightStatus.status = FLIGHT_STATUS.FLIGHT_SOLDOUT; // `机票卖完啦`;
-      } else if (happyFlight[0].cabinNumber === 'A') {
+      } else if (
+        happyFlight[0].cabinNumber === 'A'
+        || happyFlight[0].cabinNumber === '1'
+      ) {
         flightStatus.status = FLIGHT_STATUS.FLIGHT_AVAILABLE; // 有票
       } else {
         flightStatus.status = FLIGHT_STATUS.FLIGHT_UNAVAILABLE; // `机票有售, 随心飞卖完了`;
