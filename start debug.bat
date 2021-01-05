@@ -1,2 +1,2 @@
 cd %cd%
-node index.js
+yarn debug

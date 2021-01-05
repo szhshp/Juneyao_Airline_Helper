@@ -14,7 +14,9 @@ const DEBUG = config.debug;
 const DURATION = config.duration;
 const REQUEST_COUNT = config.times;
 
-const f = async ({ departureDate, arrCode, sendCode }) => {
+const f = async ({
+  departureDate, arrCode, sendCode, flightCode,
+}) => {
   const res = {
     msg: '',
     departureDate,
@@ -70,6 +72,12 @@ const f = async ({ departureDate, arrCode, sendCode }) => {
           && cabin.refundedRules.length === 0,
       );
 
+      if (
+        flightCode
+        && flightCode.length > 0
+        && flightCode.includes(flight.carrierNo) === false
+      ) return;
+
       const flightStatus = {
         msg: [
           `日期: ${departureDate}`,
@@ -83,9 +91,7 @@ const f = async ({ departureDate, arrCode, sendCode }) => {
 
       if (happyFlight.length === 0) {
         flightStatus.status = FLIGHT_STATUS.FLIGHT_SOLDOUT; // `机票卖完啦`;
-      } else if (
-        happyFlight[0].cabinNumber !== '0'
-      ) {
+      } else if (happyFlight[0].cabinNumber !== '0') {
         flightStatus.status = FLIGHT_STATUS.FLIGHT_AVAILABLE; // 有票
       } else {
         flightStatus.status = FLIGHT_STATUS.FLIGHT_UNAVAILABLE; // `机票有售, 随心飞卖完了`;
@@ -145,7 +151,7 @@ const requestMultiPayload = () => {
     });
 };
 
-requestMultiPayload();
+// requestMultiPayload();
 setInterval(
   requestMultiPayload,
   (DURATION + (DURATION / 2) * Math.random()) * 1000,

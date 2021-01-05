@@ -1,8 +1,9 @@
 const presetSetionData = [
   {
-    arrCode: 'SHA',
-    sendCode: 'SYX',
-    departureDate: ['2020-12-27'],
+    arrCode: 'CAN',
+    sendCode: 'SHA',
+    departureDate: ['2021-01-13'],
+    flightCode: ['HO1077', 'HO1037'],
   },
 ];
 
@@ -11,6 +12,7 @@ const payloads = presetSetionData
     arrCode: section.arrCode,
     sendCode: section.sendCode,
     departureDate: date,
+    flightCode: section.flightCode,
   })))
   .flat();
 
