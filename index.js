@@ -15,7 +15,7 @@ const DURATION = config.duration;
 const REQUEST_COUNT = config.times;
 
 const f = async ({
-  departureDate, arrCode, sendCode, flightCode,
+  departureDate, arrCode, sendCode, flightCode, comments,
 }) => {
   const res = {
     msg: '',
@@ -80,9 +80,8 @@ const f = async ({
 
       const flightStatus = {
         msg: [
+          comments || '',
           `日期: ${departureDate}`,
-          // `检测到 ${flightInfoDetail.length} 次航班`,
-          // `其中 ${juneyaoFlights.length} 次航班是吉祥承办`,
           `航班: ${flight.carrierNoName}`,
           `${flight.depCityName} ${flight.depAirportName} - ${flight.arrCityName} ${flight.arrAirportName}`,
           `时间: ${flight.depDateTime} - ${flight.arrDateTime}`,
@@ -90,11 +89,11 @@ const f = async ({
       };
 
       if (happyFlight.length === 0) {
-        flightStatus.status = FLIGHT_STATUS.FLIGHT_SOLDOUT; // `机票卖完啦`;
+        flightStatus.status = FLIGHT_STATUS.FLIGHT_SOLDOUT;
       } else if (happyFlight[0].cabinNumber !== '0') {
-        flightStatus.status = FLIGHT_STATUS.FLIGHT_AVAILABLE; // 有票
+        flightStatus.status = FLIGHT_STATUS.FLIGHT_AVAILABLE;
       } else {
-        flightStatus.status = FLIGHT_STATUS.FLIGHT_UNAVAILABLE; // `机票有售, 随心飞卖完了`;
+        flightStatus.status = FLIGHT_STATUS.FLIGHT_UNAVAILABLE;
       }
       res.msg = '请求成功';
       res.flightStatus.push(flightStatus);
@@ -151,7 +150,7 @@ const requestMultiPayload = () => {
     });
 };
 
-// requestMultiPayload();
+requestMultiPayload();
 setInterval(
   requestMultiPayload,
   (DURATION + (DURATION / 2) * Math.random()) * 1000,
