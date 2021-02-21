@@ -8,8 +8,6 @@
 
 https://szhshp.org/tech/2020/09/13/hackthejuneyaoairline
 
-## 遇到问题
 
-如有任何问题请到 [留言板](https://szhshp.org/tech/2020/09/13/hackthejuneyaoairline) 提出, 我看到后也不一定会帮忙解答
 
 
